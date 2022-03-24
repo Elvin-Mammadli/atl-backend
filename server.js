@@ -15,19 +15,6 @@ app.get('/users', (req, res) => {
   res.send(db.users)
 })
 
-// app.post('/users', (req, res) => {
-//   let db1 = fs.readFileSync('./db1.json');
-//   let dbObject = JSON.parse(db1)
-//   dbObject.users.push(req.body)
-//   fs.writeFile('./db1.json', JSON.stringify(dbObject), err => {
-//     if(err) {
-//       console.log(err)
-//     } else {
-//       console.log('success')
-//     }
-//   })
-// })
-
 app.get('/employeesAll', (req, res) => {
   res.send(db.employeesAll)
 })
