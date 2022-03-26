@@ -171,7 +171,27 @@ app.post('/userroles', async (req, res) => {
   res.send(userRoles);
 })
 
+app.patch('/userroles/:id', async (req, res) => {
+  UserRolesModel.updateOne({
+    _id: req.params.id
+  }, {
+    $set: {
+      name: req.body.name,
+      authority: req.body.authority,
+      description: req.body.description
+    }
+  })
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
+})
 
+app.delete('/userroles/:id', async (req, res) => {
+  UserRolesModel.deleteOne({
+    _id: req.params.id
+  })
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
+})
 
 
 
