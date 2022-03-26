@@ -1,90 +1,75 @@
+const fs = require('fs')
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const UserModel = require('./models/Users');
-const UserRolesModel = require('./models/UsersRoles');
-const { default: mongoose } = require('mongoose');
+require('dotenv').config();
+const db = require('./db.json');
+// const db1 = require('./db1.json');
 
 app.use(cors());
-app.use(express.json());
 
-mongoose.connect("mongodb+srv://elvin:19920719@cluster0.5p4yg.mongodb.net/xezertv?retryWrites=true&w=majority")
-  .then(res => console.log("connected to mongodb"))
-  .catch(err => console.log(err));
-
-// --------------------------------------------------
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: false}))
 
 app.get('/users', (req, res) => {
-  UserModel.find()
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => console.log(err))
+  res.send(db.users)
 })
 
-app.post('/users', async (req, res) => {
-  const user = {
-    fullName: req.body.fullName,
-    username: req.body.username,
-    position: req.body.position,
-    password: req.body.password,
-  }
-
-  const newUser = new UserModel(user);
-  await newUser.save();
-  res.send(user)
+app.get('/employeesAll', (req, res) => {
+  res.send(db.employeesAll)
 })
 
-app.patch('/users/:id', async (req, res) => {
-  UserModel.updateOne({
-    _id: req.params.id
-  }, {
-    $set: {
-      username: req.body.username,
-      position: req.body.position
-    }
-  })
-    .then(result => res.send(result))
-    .catch(err => res.send(err))
+app.get('/login', (req, res) => {
+  res.send(db.login)
 })
 
-app.delete('/users/:id', async (req, res) => {
-  UserModel.deleteOne({
-    _id: req.params.id
-  })
-    .then(result => res.send(result))
-    .catch(err => res.send(err))
+app.get('/lastQueries', (req, res) => {
+  res.send(db.lastQueries)
 })
 
-//-----------------------------------------
+app.get('/myQueries', (req, res) => {
+  res.send(db.myQueries)
+})
+
+app.get('/employees', (req, res) => {
+  res.send(db.employees)
+})
+
+app.get('/anniversary', (req, res) => {
+  res.send(db.anniversary)
+})
+
+app.get('/dayOff', (req, res) => {
+  res.send(db.dayOff)
+})
+
+app.get('/vacation', (req, res) => {
+  res.send(db.vacation)
+})
+
+app.get('/birthday', (req, res) => {
+  res.send(db.birthday)
+})
+
+app.get('/trip', (req, res) => {
+  res.send(db.trip)
+})
+
+app.get('/advertisements', (req, res) => {
+  res.send(db.advertisements)
+})
+
+app.get('/vacationBalance', (req, res) => {
+  res.send(db.vacationBalance)
+})
+
+app.get('/queries', (req, res) => {
+  res.send(db.queries)
+})
 
 app.get('/userroles', (req, res) => {
-  UserRolesModel.find()
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => console.log(err))
+  res.send(db.userroles)
 })
-
-app.post('/userroles', async (req, res) => {
-  const userRoles = req.body
-  const newUserRoles = new UserRolesModel(userRoles);
-  await newUserRoles.save();
-  res.send(userRoles);
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(process.env.PORT || 3003, () => {
   console.log('server works')
