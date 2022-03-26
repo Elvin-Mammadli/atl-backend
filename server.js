@@ -1,11 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const UserModel = require('./models/Users');
-const UserRolesModel = require('./models/UsersRoles');
 const mongoose = require('mongoose');
-const EmployeesAllModel = require('./models/EmployeesAll');
-const VacationModel = require('./models/Vacation');
+const { AdvertisementModel, AnniversaryModel, BirthdayModel, DayOffModel, EmployeesAllModel, EmployeesModel, LastQueriesModel, MyQueriesModel, QueriesModel, TripModel, UserModel, UserRolesModel, VacationBalanceModel, VacationModel } = require('./models')
 
 app.use(cors());
 app.use(express.json());
@@ -16,8 +13,6 @@ mongoose.connect("mongodb+srv://elvin:19920719@cluster0.5p4yg.mongodb.net/xezert
 
 
 // --------------------------------------------------
-
-let db = mongoose.connection;
 
 app.get('/employeesAll', (req, res) => {
   EmployeesAllModel.find()
@@ -36,7 +31,7 @@ app.get('/vacation', (req, res) => {
 })
 
 app.get('/trip', (req, res) => {
-  mongoose.model('trip', {}, 'trip').find()
+  TripModel.find()
     .then(result => {
       res.send(result);
     })
@@ -44,7 +39,7 @@ app.get('/trip', (req, res) => {
 })
 
 app.get('/lastQueries', (req, res) => {
-  mongoose.model('lastQueries', {}, 'lastQueries').find()
+  LastQueriesModel.find()
     .then(result => {
       res.send(result);
     })
@@ -52,7 +47,7 @@ app.get('/lastQueries', (req, res) => {
 })
 
 app.get('/myQueries', (req, res) => {
-  mongoose.model('myquerries', {}, 'myquerries').find()
+  MyQueriesModel.find()
     .then(result => {
       res.send(result);
     })
@@ -60,7 +55,7 @@ app.get('/myQueries', (req, res) => {
 })
 
 app.get('/employees', (req, res) => {
-  mongoose.model('employees', {}, 'employees').find()
+  EmployeesModel.find()
     .then(result => {
       res.send(result);
     })
@@ -68,7 +63,7 @@ app.get('/employees', (req, res) => {
 })
 
 app.get('/anniversary', (req, res) => {
-  mongoose.model('anniversary', {}, 'anniversary').find()
+  AnniversaryModel.find()
     .then(result => {
       res.send(result);
     })
@@ -76,7 +71,7 @@ app.get('/anniversary', (req, res) => {
 })
 
 app.get('/dayOff', (req, res) => {
-  mongoose.model('dayOff', {}, 'dayOff').find()
+  DayOffModel.find()
     .then(result => {
       res.send(result);
     })
@@ -84,7 +79,7 @@ app.get('/dayOff', (req, res) => {
 })
 
 app.get('/advertisements', (req, res) => {
-  mongoose.model('advertisements', {}, 'advertisements').find()
+  AdvertisementModel.find()
     .then(result => {
       res.send(result);
     })
@@ -92,7 +87,7 @@ app.get('/advertisements', (req, res) => {
 })
 
 app.get('/birthday', (req, res) => {
-  mongoose.model('birthday', {}, 'birthday').find()
+  BirthdayModel.find()
     .then(result => {
       res.send(result);
     })
@@ -100,7 +95,7 @@ app.get('/birthday', (req, res) => {
 })
 
 app.get('/vacationbalance', (req, res) => {
-  mongoose.model('vacationbalance', {}, 'vacationbalance').find()
+  VacationBalanceModel.find()
     .then(result => {
       res.send(result);
     })
@@ -108,12 +103,14 @@ app.get('/vacationbalance', (req, res) => {
 })
 
 app.get('/queries', (req, res) => {
-  mongoose.model('queries', {}, 'queries').find()
+  QueriesModel.find()
     .then(result => {
       res.send(result);
     })
     .catch(err => console.log(err))
 })
+
+//--------------------------------------------
 
 app.get('/users', (req, res) => {
   UserModel.find()
